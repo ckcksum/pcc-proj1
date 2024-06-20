@@ -20,15 +20,5 @@ This is my solution to the Python Crash Course Part II Project 1, Alien Invasion
     - If an alien reaches the bottom of the screen
 - **Game end**: Player loses 3 ships
 
-
-
-
-
-
-
-
-
-
-
 ---
 [TOP](#toc)
