@@ -1,7 +1,9 @@
 import pygame
+from pygame.sprite import Sprite
 
-class Ship:
+class Ship(Sprite) :
         def __init__(self, ai_game):
+            super().__init__()
             self.screen = ai_game.screen
             self.settings = ai_game.settings
 
@@ -19,10 +21,15 @@ class Ship:
             self.moving_left = False
 
         def update(self):
-            if self.moving_right:
-                self.rect.x += 1
-            if self.moving_left:
-                self.rect.x -= 1
+            if self.moving_right and self.rect.right < self.screen_rect.right:
+                self.x += self.settings.ship_speed
+            if self.moving_left and self.rect.left > 0:
+                self.x -= self.settings.ship_speed
+            self.rect.x = self.x # self.rect.x only store integer
+
+        def center_ship(self):
+            self.rect.midbottom = self.screen_rect.midbottom
+            self.x = float(self.rect.x)
 
         # Method that draws the image to the screen at the pos specs by self.rect
         def blitme(self):
