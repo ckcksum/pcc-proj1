@@ -1,4 +1,7 @@
-# TOC
+# Alien Invasion
+This is my solution to the Python Crash Course Part II Project 1, Alien Invasion.
+
+---
 - [TOC](#toc)
 - [Alien Invasion](#alien-invasion)
   - [Planning](#planning)
@@ -8,11 +11,6 @@
     - [Chapter 14 Scoring](#chapter-14-scoring)
 
 ---
-
-# Alien Invasion
-This is my solution to the Python Crash Course Part II Project 1, Alien Invasion.
-
-
 
 ## Planning
 - **Player**: controls the rocket ship at the bottom center 
