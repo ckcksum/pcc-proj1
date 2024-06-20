@@ -5,17 +5,16 @@ import sys
 import pygame
 
 # Import settings
-from setting import Settings
+from settings import Settings
+from ship import Ship
 
 class AlienInvasion:
     def __init__(self):
         pygame.init()
         self.settings = Settings()
-        self.screen = pygame.display.set_mode(self.settings.screen_width, self.settings.screen_height)
-
-        # Create a display windows: (Wide,High) in pixels 
-        self.screen = pygame.display.set_mode((1200,600)) 
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
+        self.ship = Ship(self)
         self.bg_color = (230, 230, 200)
 
     def run_game(self):
@@ -25,8 +24,10 @@ class AlienInvasion:
             for event in  pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+
             # Redraw the screen during each pass through the loop
             self.screen.fill(self.settings.bg_color)
+            self.ship.blitme()
 
             # Make the most recently drawn screen visible.
             pygame.display.flip()
