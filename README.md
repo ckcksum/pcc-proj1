@@ -1,5 +1,5 @@
 # Alien Invasion
-This is my solution to the Python Crash Course Part II Project 1, Alien Invasion.
+This is my solution to the Python Crash Course Part II Project 1, Alien Invasion. In this game, a player can control a rocket ship to defend against an invading fleet of aliens. Dark mode is supported.
 
 ----
 - [Alien Invasion](#alien-invasion)
@@ -40,7 +40,7 @@ This is my solution to the Python Crash Course Part II Project 1, Alien Invasion
 - Implementing the scoring system
 
 # My implementation
-Created a toggle button that allows user to switch between light mode and dark mode.
+I created a toggle button that allows users to switch between light and dark modes.
 - 21/06/24: Dark mode created but toggle button and the main game window are seperated.
 ---
 [TOP](#alien-invasion)
