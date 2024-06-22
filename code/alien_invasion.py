@@ -1,4 +1,5 @@
 import sys
+
 from time import sleep
 import pygame
 
@@ -9,26 +10,27 @@ from alien import Alien
 from game_stats import GameStats
 from play_buttion import PlayButton
 from scoreboard import Scoreboard
+from visual import Visual
 
 class AlienInvasion:
     def __init__(self):
         pygame.init()
         self.settings = Settings()
-
+        self.visual = Visual()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+
         # Run the game full screen:
         # self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
         # self.settings.screen_width = self.screen.get_rect().width
         # self.settings.screen_height = self.screen.get_rect().height
-
         pygame.display.set_caption("Alien Invasion")
+
+        # Game components
         self.stats = GameStats(self)
         self.sb = Scoreboard(self)
         self.ship = Ship(self)
-        self.bg_color = (230, 230, 200)
-
         self.bullets = pygame.sprite.Group() # Store the fired bullets as a group
-        self.aliens = pygame.sprite.Group() # Store the fired bullets as a group
+        self.aliens = pygame.sprite.Group() # Store aliens as a group
         self._create_fleet()
         self.play_button = PlayButton(self, "Play")
 
@@ -122,6 +124,8 @@ class AlienInvasion:
         alien = Alien(self)
         alien_width, alien_height = alien.rect.size
         available_space_x = self.settings.screen_width - (2*alien_width)
+        # available_space_x = self.settings.screen_width - (2*alien_width)
+
         num_aliens_x = available_space_x // (2*alien_width)
 
         ship_height = self.ship.rect.height
@@ -131,6 +135,8 @@ class AlienInvasion:
         for row_number in range(num_rows):
             for alien_number in range(num_aliens_x):
                 self._create_alien(alien_number, row_number)
+                for alien in self.aliens.sprites():
+                    alien.switch_mode(self.settings.visual.dark_mode)
 
     def _create_alien(self, alien_number, row_number):
         alien = Alien(self)
@@ -139,6 +145,7 @@ class AlienInvasion:
         alien.rect.x = alien.x
         alien.rect.y = alien.rect.height + 2*alien.rect.height*row_number
         self.aliens.add(alien)
+        alien.switch_mode(self.settings.visual.dark_mode)
 
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
@@ -146,6 +153,9 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+        self.sb.prep_score()
+        self.sb.prep_level()
+        self.sb.prep_ship()
         self.sb.show_score()
 
         if not self.stats.game_active:
@@ -174,15 +184,11 @@ class AlienInvasion:
         if self.stats.ships_left > 0:
             self.stats.ships_left -= 1
             self.sb.prep_ship()
-
             self.aliens.empty()
             self.bullets.empty()
-
             self._create_fleet()
             self.ship.center_ship()
-
             sleep(0.5)
-
         else:
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
@@ -193,9 +199,22 @@ class AlienInvasion:
             if alien.rect.bottom >= screen_rect.bottom:
                 self._ship_hit()
                 break
+    
+    # Update to dark theme/light theme
+    def update_visuals(self, dark_mode):
+        self.settings.switch_mode(dark_mode)
+        # self.bg_color = self.settings.bg_color
+        self.ship.switch_mode(dark_mode)
+        for alien in self.aliens.sprites():
+            alien.switch_mode(dark_mode)
+        self.sb.visual = self.settings.visual
+        self.sb.prep_high_score()
+        # self.sb.text_color = self.settings.sb_text_color
+        # # self.sb.prep_score()
+        # self.sb.prep_level()
+        # self.sb.prep_ship()
 
-if __name__ == '__main__':
-    # Make a game instance, and run the game.
-    ai = AlienInvasion()
-    ai.run_game()
-
+# if __name__ == '__main__':
+#     # Make a game instance, and run the game.
+#     ai = AlienInvasion()
+#     ai.run_game()

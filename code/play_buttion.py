@@ -1,13 +1,14 @@
 import pygame.font
-
+from visual import Visual
 class PlayButton:
     def __init__(self, ai_game, msg):
+        self.visual = Visual()
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
 
         self.width, self.height = 200,50
-        self.button_color = (0, 255, 0)
-        self.text_color = (255, 255, 255)
+        self.button_color = self.visual.play_btn_color
+        self.text_color = self.visual.play_btn_text_color
         self.font = pygame.font.SysFont(None, 40)
 
         self.rect = pygame.Rect(0,0,self.width, self.height)

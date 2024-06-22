@@ -6,7 +6,7 @@ class Alien(Sprite):
         super().__init__()
         self.settings = ai_game.settings
         self.screen = ai_game.screen
-        self.image = pygame.image.load('images/alien.bmp')
+        self.image = pygame.image.load('images/alien.bmp').convert_alpha()
         self.rect = self.image.get_rect()
 
         self.rect.x = self.rect.width
@@ -20,7 +20,13 @@ class Alien(Sprite):
             return True
         
     def update(self):
-        self.x += (self.settings.alien_speed*self.settings.fleet_direction)
+        self.x += (self.settings.alien_speed * self.settings.fleet_direction)
         self.rect.x = self.x
         
-    
+    def switch_mode(self, dark_mode):
+        if dark_mode:
+            self.image = pygame.image.load('images/alien_dark.png').convert_alpha()
+        else:
+            self.image = pygame.image.load('images/alien.bmp').convert_alpha()
+        # Preserve the alien's position
+        self.rect = self.image.get_rect(topleft=self.rect.topleft)

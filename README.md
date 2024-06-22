@@ -1,13 +1,14 @@
 # Alien Invasion
 This is my solution to the Python Crash Course Part II Project 1, Alien Invasion.
 
----
+----
 - [Alien Invasion](#alien-invasion)
   - [Planning](#planning)
   - [Description](#description)
     - [Chapter 12 A SHIP THAT FIRES BULLETS](#chapter-12-a-ship-that-fires-bullets)
     - [Chapter 13 ALIENS!](#chapter-13-aliens)
     - [Chapter 14 Scoring](#chapter-14-scoring)
+- [My implementation](#my-implementation)
 
 ---
 
@@ -38,5 +39,8 @@ This is my solution to the Python Crash Course Part II Project 1, Alien Invasion
 - Elements' speed settings
 - Implementing the scoring system
 
+# My implementation
+Created a toggle button that allows user to switch between light mode and dark mode.
+- 21/06/24: Dark mode created but toggle button and the main game window are seperated.
 ---
-[TOP](#toc)
+[TOP](#alien-invasion)
